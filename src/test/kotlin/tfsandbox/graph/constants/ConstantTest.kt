@@ -1,5 +1,4 @@
-package tfsandbox
-
+package tfsandbox.graph.constants
 
 import org.junit.Assert
 import org.junit.Test
@@ -8,8 +7,6 @@ import org.tensorflow.Session
 import org.tensorflow.TensorFlow
 import tfsandbox.exts.addConstant
 import tfsandbox.exts.run
-import kotlin.use
-
 
 class ConstantTest {
 
@@ -31,6 +28,17 @@ class ConstantTest {
                         })
 
             }
+        }
+    }
+
+    @Test
+    fun operationInGraphExistsByName() {
+        Graph().use { graph ->
+
+            val myConst1 = graph.addConstant("aConstant1", "val")
+
+            val operationOutput = graph.operation("aConstant1")
+            Assert.assertEquals(operationOutput, myConst1.op())
         }
     }
 
