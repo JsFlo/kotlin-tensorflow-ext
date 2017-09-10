@@ -6,7 +6,7 @@ import org.tensorflow.Graph
 import org.tensorflow.Session
 import org.tensorflow.TensorFlow
 import tfsandbox.exts.addConstant
-import tfsandbox.exts.run
+import tfsandbox.exts.runFirstTensor
 
 class ConstantTest {
 
@@ -23,7 +23,7 @@ class ConstantTest {
 
                 sess.runner()
                         .fetch(myConst)
-                        .run({ output ->
+                        .runFirstTensor({ output ->
                             Assert.assertEquals(value, output.bytesValue().toUTF8String())
                         })
 

@@ -7,7 +7,7 @@ import org.junit.runners.Parameterized
 import org.tensorflow.Graph
 import org.tensorflow.Session
 import tfsandbox.exts.addConstant
-import tfsandbox.exts.run
+import tfsandbox.exts.runFirstTensor
 import java.util.*
 
 @RunWith(Parameterized::class)
@@ -74,7 +74,7 @@ public class ConstantFetchAndCheckValue(val constants: List<Data>, val constantN
 
                 sess.runner()
                         .fetch(constantNameToFetch)
-                        .run({ output ->
+                        .runFirstTensor({ output ->
                             when (expectedValue) {
                                 is String -> Assert.assertEquals(expectedValue, output.bytesValue().toUTF8String())
                                 is Float -> Assert.assertEquals(expectedValue, output.floatValue())
