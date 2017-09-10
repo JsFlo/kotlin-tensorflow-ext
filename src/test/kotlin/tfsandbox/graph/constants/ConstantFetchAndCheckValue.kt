@@ -38,6 +38,7 @@ public class ConstantFetchAndCheckValue(val constants: List<Data>, val constantN
                 Data("constant4", 4),
                 Data("constant5", 5))
 
+        // Could abstract more to re run same test cases over all types
         @Parameterized.Parameters(name = "Fetching {1}: Expecting: {2}") @JvmStatic
         public fun getData(): Collection<*> {
             return Arrays.asList(*arrayOf(

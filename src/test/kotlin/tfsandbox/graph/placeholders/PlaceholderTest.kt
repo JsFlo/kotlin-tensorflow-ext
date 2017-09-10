@@ -1,5 +1,6 @@
 package tfsandbox.graph.placeholders
 
+import org.junit.Assert
 import org.junit.Test
 import org.tensorflow.DataType
 import org.tensorflow.Graph
@@ -31,6 +32,7 @@ class PlaceholderTest {
                         .fetch(y)
                         .runFirstTensor {
                             println("${ta.floatValue()} + ${tb.floatValue()} = ${it.floatValue()}")
+                            Assert.assertEquals(ta.floatValue() + tb.floatValue(), it.floatValue())
                         }
                 ta.close()
                 tb.close()
