@@ -13,18 +13,18 @@ Kotlin's extension functions to provide a better API and to learn the current li
 ```kotlin
 Graph().use { graph ->
 
-val value = "Hello from  ${TensorFlow.version()}"
-val myConst = graph.addConstant("aConstant", value)
+    val value = "Hello from  ${TensorFlow.version()}"
+    val myConst = graph.addConstant("aConstant", value)
 
-Session(graph).use { sess ->
+    Session(graph).use { sess ->
 
-sess.runner()
-.fetch(myConst)
-.runFirstTensor({ output ->
-Assert.assertEquals(value, output.bytesValue().toUTF8String())
-})
+        sess.runner()
+        .fetch(myConst)
+        .runFirstTensor({ output ->
+        Assert.assertEquals(value, output.bytesValue().toUTF8String())
+        })
 
-}
+    }
 }
 ```
 
@@ -32,26 +32,26 @@ Assert.assertEquals(value, output.bytesValue().toUTF8String())
 ```kotlin
 Graph().use { graph ->
 
-// Creates a graph for y = a (placeholder) + b (placeholder)
-val a = graph.addPlaceholder("a", DataType.FLOAT)
-val b = graph.addPlaceholder("b", DataType.FLOAT)
-val y = graph.Operation("y", OperationType.ADD, a, b)
+    // Creates a graph for y = a (placeholder) + b (placeholder)
+    val a = graph.addPlaceholder("a", DataType.FLOAT)
+    val b = graph.addPlaceholder("b", DataType.FLOAT)
+    val y = graph.Operation("y", OperationType.ADD, a, b)
 
-Session(graph).use { sess ->
+    Session(graph).use { sess ->
 
-val ta = Tensor.create(10f)
-val tb = Tensor.create(10f)
-sess.runner()
-.feed(a, ta)
-.feed(b, tb)
-.fetch(y)
-.runFirstTensor {
-println("${ta.floatValue()} + ${tb.floatValue()} = ${it.floatValue()}")
-Assert.assertEquals(ta.floatValue() + tb.floatValue(), it.floatValue())
-}
-ta.close()
-tb.close()
-}
+        val ta = Tensor.create(10f)
+        val tb = Tensor.create(10f)
+        sess.runner()
+        .feed(a, ta)
+        .feed(b, tb)
+        .fetch(y)
+        .runFirstTensor {
+            println("${ta.floatValue()} + ${tb.floatValue()} = ${it.floatValue()}")
+            Assert.assertEquals(ta.floatValue() + tb.floatValue(), it.floatValue())
+        }
+    ta.close()
+    tb.close()
+    }
 }
 ```
 ## Operations
